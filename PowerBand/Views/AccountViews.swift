@@ -1,4 +1,5 @@
 import SwiftUI
+import AuthenticationServices
 
 private enum Legal {
     static let privacy = URL(string: "https://powerband.fit/privacy/")!
@@ -28,6 +29,7 @@ struct AccountView: View {
     @Environment(Store.self) private var store
     @Environment(Account.self) private var account
     @Environment(SensorManager.self) private var sensor
+    @Environment(AuthService.self) private var auth
     @AppStorage("useMph") private var useMph = true
     @AppStorage("dailyGoal") private var goal = 200
     @AppStorage("hapticsOn") private var hapticsOn = true
@@ -55,6 +57,7 @@ struct AccountView: View {
                         VStack(alignment: .leading, spacing: 3) {
                             Text(p.name).font(.system(size: 18, weight: .bold)).foregroundStyle(.white)
                             Text(p.email.isEmpty ? "No email added" : p.email).font(.system(size: 13)).foregroundStyle(Theme.muted)
+                            Label(p.authMethod == .local ? "Account on this phone" : "Signed in with \(p.authMethod.title)", systemImage: p.authMethod.symbol).font(.system(size: 11, weight: .medium)).foregroundStyle(Theme.green)
                             Text("Member since \(p.createdAt.formatted(.dateTime.month(.wide).year()))").font(.system(size: 11)).foregroundStyle(Theme.muted)
                         }
                         Spacer()
@@ -108,6 +111,10 @@ struct AccountView: View {
 
                 SectionLabel("ACCOUNT")
                 Rows {
+                    if account.profile?.authMethod == .email {
+                        Button { Task { await auth.sendPasswordReset(email: account.profile?.email ?? "") } } label: { Row(title: "Send password reset email") { Image(systemName: "key.fill").foregroundStyle(Theme.muted) } }
+                        divider
+                    }
                     Button { confirmSignOut = true } label: { Row(title: "Sign out") { Image(systemName: "rectangle.portrait.and.arrow.right").foregroundStyle(Theme.muted) } }
                     divider
                     Button { deleting = true } label: { Row(title: "Delete account", tint: Theme.red) { Image(systemName: "trash").foregroundStyle(Theme.red) } }
@@ -119,7 +126,7 @@ struct AccountView: View {
             .sheet(isPresented: $editing) { EditProfileView() }
             .sheet(isPresented: $deleting) { DeleteAccountView() }
             .confirmationDialog("Sign out of PowerBand?", isPresented: $confirmSignOut, titleVisibility: .visible) {
-                Button("Sign out", role: .destructive) { account.signOut() }
+                Button("Sign out", role: .destructive) { auth.signOut(); account.signOut() }
             } message: { Text("Your sessions stay on this phone and are here when you sign back in.") }
             .confirmationDialog("Delete every session on this phone?", isPresented: $confirmClear, titleVisibility: .visible) {
                 Button("Delete all sessions", role: .destructive) { store.deleteAll() }
@@ -156,8 +163,13 @@ struct DeleteAccountView: View {
     @Environment(Store.self) private var store
     @Environment(Account.self) private var account
     @Environment(SensorManager.self) private var sensor
+    @Environment(AuthService.self) private var auth
     @Environment(\.dismiss) private var dismiss
     @State private var typed = ""
+    @State private var password = ""
+    @State private var working = false
+
+    private var method: AuthMethod { account.profile?.authMethod ?? .local }
 
     var body: some View {
         NavigationStack {
@@ -165,69 +177,74 @@ struct DeleteAccountView: View {
                 Image(systemName: "exclamationmark.triangle.fill").font(.system(size: 34)).foregroundStyle(Theme.red).frame(maxWidth: .infinity)
                 Text("Delete your account?").font(.num(30)).foregroundStyle(.white).frame(maxWidth: .infinity)
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("This permanently removes from this phone:").font(.system(size: 14, weight: .semibold)).foregroundStyle(.white)
-                    ForEach(["Your profile (name and email)", "All \(store.totalShots.formatted()) shots across \(store.sessions.count) sessions", "Your goals, units and other settings", "The connection to your paired sensor"], id: \.self) { t in
-                        Label(t, systemImage: "minus.circle.fill").font(.system(size: 13)).foregroundStyle(Color(hex: 0xB6BEC4)).labelStyle(.titleAndIcon)
+                    Text("This permanently removes:").font(.system(size: 14, weight: .semibold)).foregroundStyle(.white)
+                    ForEach(deletions, id: \.self) { t in
+                        Label(t, systemImage: "minus.circle.fill").font(.system(size: 13)).foregroundStyle(Color(hex: 0xB6BEC4))
                     }
-                    Text("There is nothing to recover afterwards: PowerBand doesn't keep a copy on any server. Export your shots first if you want to keep them.").font(.system(size: 12)).foregroundStyle(Theme.muted)
+                    Text("This can't be undone. PowerBand doesn't keep a copy of your sessions anywhere else. Export your shots first if you want to keep them.").font(.system(size: 12)).foregroundStyle(Theme.muted)
                 }
                 .card()
                 VStack(alignment: .leading, spacing: 8) {
                     Kicker("Type DELETE to confirm")
                     TextField("DELETE", text: $typed).textInputAutocapitalization(.characters).autocorrectionDisabled()
                         .padding(12).background(Color.white.opacity(0.06), in: RoundedRectangle(cornerRadius: 12))
+                    if method == .email {
+                        Kicker("Confirm your password").padding(.top, 6)
+                        SecureField("Password", text: $password).padding(12).background(Color.white.opacity(0.06), in: RoundedRectangle(cornerRadius: 12))
+                    }
                 }
-                Button(role: .destructive) { dismiss(); account.deleteAccount(store: store, sensor: sensor) } label: {
-                    Text("Delete my account").font(.system(size: 16, weight: .bold)).frame(maxWidth: .infinity).padding(.vertical, 14)
+                if let m = auth.message { Text(m).font(.system(size: 12, weight: .medium)).foregroundStyle(Theme.red) }
+
+                if method == .apple && typed.uppercased() == "DELETE" {
+                    SignInWithAppleButton(.continue) { auth.prepareApple($0) } onCompletion: { r in finish(.apple(r)) }
+                        .signInWithAppleButtonStyle(.white).frame(height: 50).clipShape(RoundedRectangle(cornerRadius: 14))
+                    Text("Apple asks you to confirm so we can delete the account and revoke its access.").font(.system(size: 11)).foregroundStyle(Theme.muted)
+                } else {
+                    Button(role: .destructive) { finish(method == .email ? .password(password) : method == .google ? .google : nil) } label: {
+                        Group { if working { ProgressView().tint(.black) } else { Text(method == .google ? "Confirm with Google and delete" : "Delete my account").font(.system(size: 16, weight: .bold)) } }
+                            .frame(maxWidth: .infinity).padding(.vertical, 14)
+                    }
+                    .buttonStyle(.borderedProminent).tint(Theme.red).foregroundStyle(.black)
+                    .disabled(typed.uppercased() != "DELETE" || working || (method == .email && password.isEmpty))
                 }
-                .buttonStyle(.borderedProminent).tint(Theme.red).foregroundStyle(.black).disabled(typed.uppercased() != "DELETE")
                 Button("Cancel") { dismiss() }.frame(maxWidth: .infinity).foregroundStyle(Theme.muted)
             }
             .navigationBarTitleDisplayMode(.inline)
+        }
+    }
+
+    private var deletions: [String] {
+        var d = ["Your profile (name and email)", "All \(store.totalShots.formatted()) shots across \(store.sessions.count) sessions on this phone", "Your goals, units and other settings", "The connection to your paired sensor"]
+        if method != .local { d.insert("Your \(method.title) sign-in account", at: 1) }
+        return d
+    }
+
+    private func finish(_ reauth: ReauthMethod?) {
+        working = true
+        Task {
+            let ok = await auth.deleteAccount(reauth: reauth)
+            working = false
+            if ok { dismiss(); account.deleteAccount(store: store, sensor: sensor) }
         }
     }
 }
 
 // MARK: Sign-in and profile creation
 
-struct CreateProfileView: View {
-    @Environment(Account.self) private var account
-    @State private var name = ""
-    @State private var email = ""
-
-    var body: some View {
-        ZStack {
-            Theme.bg.ignoresSafeArea()
-            VStack(spacing: 20) {
-                Spacer(minLength: 20)
-                Text("P").font(.system(size: 54, weight: .heavy).italic()).foregroundStyle(.white)
-                Text("Create your profile").font(.num(36)).foregroundStyle(.white)
-                Text("Your profile and every swing stay on this phone. There's no password and nothing is uploaded.").font(.system(size: 14)).foregroundStyle(Theme.muted).multilineTextAlignment(.center).padding(.horizontal, 30)
-                VStack(spacing: 12) {
-                    TextField("Your name", text: $name).textContentType(.name).padding(14).background(Theme.card, in: RoundedRectangle(cornerRadius: 14))
-                    TextField("Email (optional)", text: $email).textContentType(.emailAddress).keyboardType(.emailAddress).textInputAutocapitalization(.never).autocorrectionDisabled().padding(14).background(Theme.card, in: RoundedRectangle(cornerRadius: 14))
-                }
-                .padding(.horizontal, 24)
-                Spacer()
-                Button { account.create(name: name, email: email) } label: {
-                    Text("Continue").font(.system(size: 17, weight: .bold)).frame(maxWidth: .infinity).padding(.vertical, 16)
-                }
-                .buttonStyle(.borderedProminent).tint(Theme.green).foregroundStyle(.black).padding(.horizontal, 24)
-                Button("Skip for now") { account.create(name: "Athlete", email: "") }.font(.system(size: 14)).foregroundStyle(Theme.muted)
-                Text("By continuing you agree to the [Terms of Service](https://powerband.fit/terms/) and [Privacy Policy](https://powerband.fit/privacy/).")
-                    .font(.system(size: 11)).foregroundStyle(Theme.muted).multilineTextAlignment(.center).padding(.horizontal, 32).padding(.bottom, 14)
-            }
-        }
-    }
-}
-
 struct SignInView: View {
     @Environment(Store.self) private var store
     @Environment(Account.self) private var account
     @Environment(SensorManager.self) private var sensor
+    @Environment(AuthService.self) private var auth
     @State private var confirmDelete = false
 
     var body: some View {
+        if let p = account.profile, p.authMethod != .local {
+            AuthView(title: "Welcome back, \(p.name)", subtitle: "Sign in again to see your sessions. They're still saved on this phone.", allowSkip: false)
+        } else { localBody }
+    }
+
+    private var localBody: some View {
         ZStack {
             Theme.bg.ignoresSafeArea()
             VStack(spacing: 18) {

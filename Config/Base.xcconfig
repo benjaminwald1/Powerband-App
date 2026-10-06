@@ -1,3 +1,6 @@
-// Shared build settings. Your personal signing settings go in Local.xcconfig (git-ignored, see Local.xcconfig.example).
+// Shared build settings. Your personal settings go in Local.xcconfig (git-ignored).
 CODE_SIGN_STYLE = Automatic
+// Placeholders; scripts/setup-auth.sh writes the real values into Local.xcconfig after you add GoogleService-Info.plist.
+FIREBASE_APP_SCHEME = pb-auth-unconfigured
+GOOGLE_REVERSED_CLIENT_ID = pb-google-unconfigured
 #include? "../Local.xcconfig"

@@ -6,3 +6,5 @@ xcuserdata/
 *.xcodeproj/project.xcworkspace/xcuserdata/
 
 Local.xcconfig
+
+PowerBand/Resources/GoogleService-Info.plist

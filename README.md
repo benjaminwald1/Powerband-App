@@ -29,6 +29,10 @@ xcodegen generate
 
 Open `PowerBand.xcodeproj`, pick your iPhone and press Run. Xcode creates the provisioning profile for `com.benjaminwald.powerband` the first time.
 
+## Sign-in (Apple, Google, email and password)
+
+Optional accounts run on Firebase Authentication. Until you add `GoogleService-Info.plist` the app stays in local mode (on-device profile), so nothing breaks. Setup steps: [docs/AUTH_SETUP.md](docs/AUTH_SETUP.md) and `scripts/setup-auth.sh`. Account deletion re-authenticates, revokes the Apple token and deletes the Firebase user, then wipes local data.
+
 ## Bluetooth sensor
 
 The app connects to a sensor over Bluetooth LE, remembers the last one, auto-reconnects (including after a dropout mid-session), reads battery and firmware, and keeps streaming while the screen is locked. The wire format is in [docs/SENSOR_PROTOCOL.md](docs/SENSOR_PROTOCOL.md). To test it with no hardware, run the Mac emulator in `Tools/SensorEmulator` and connect from a real iPhone (the iOS Simulator has no Bluetooth).

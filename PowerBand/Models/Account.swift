@@ -6,6 +6,9 @@ struct Profile: Codable, Equatable {
     var name: String
     var email: String
     var createdAt = Date()
+    var method: AuthMethod? = nil
+    var uid: String? = nil
+    var authMethod: AuthMethod { method ?? .local }
     var initial: String { String(name.trimmingCharacters(in: .whitespaces).first ?? "A").uppercased() }
 }
 
@@ -36,6 +39,15 @@ final class Account {
         profile = Profile(name: n.isEmpty ? "Athlete" : n, email: email.trimmingCharacters(in: .whitespacesAndNewlines))
         signedIn = true
         persist()
+    }
+
+    /// Links the profile on this phone to a signed-in cloud account (Apple, Google or email).
+    func adopt(_ u: AuthUser) {
+        var p = profile ?? Profile(name: u.name.isEmpty ? "Athlete" : u.name, email: u.email)
+        if !u.name.isEmpty { p.name = u.name } else if p.name.isEmpty { p.name = "Athlete" }
+        if !u.email.isEmpty { p.email = u.email }
+        p.method = u.method; p.uid = u.uid
+        profile = p; signedIn = true; persist()
     }
 
     func update(name: String, email: String) {

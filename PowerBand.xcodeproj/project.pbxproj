@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0706BCC6871D78B93713BCCD /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584EEEBBBACEB4D676E841EC /* RootView.swift */; };
+		098D818729A5D54A323C5D6E /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 0C30964994F0623F6E8FA374 /* FirebaseAuth */; };
 		11DDE6F2D9C43A5EE4B46742 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 032272F41399BF1460A1BFA9 /* Assets.xcassets */; };
 		13BCE1E1980B17D4F8D494FD /* LiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A067D71EDE64786754F3FF24 /* LiveView.swift */; };
 		170851700F9D2A0F6A4BC8C2 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFB5564EF09B6BBA2772E5A /* Store.swift */; };
@@ -15,6 +16,7 @@
 		274EABFD59AD135355F3E8B1 /* SensorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3ED794AD1FB4E35FE4A3078 /* SensorManager.swift */; };
 		2E8F81BB2C933896F28F5A35 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F62A1008C2EF9D193118ABE /* HistoryView.swift */; };
 		302C39429962C41F9DABCD19 /* ShareCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C42F9F47FD3C90BDB2FC282 /* ShareCard.swift */; };
+		39CAF8C49BD0FD6EFC7CC8B0 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374193FF2CE1367B03D3FE12 /* AuthView.swift */; };
 		3D37D708E60EDDB7FA443495 /* PowerBandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C918A2B75DFB9447A1CCC6F0 /* PowerBandTests.swift */; };
 		49C5B59A3A5736962675208E /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 59860CA257F552E54016C947 /* PrivacyInfo.xcprivacy */; };
 		5526EF9E97BEDF140B01FB8D /* DeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C81336927338851678AC63 /* DeviceView.swift */; };
@@ -23,6 +25,7 @@
 		703643F5D5E74FBB4138EDD5 /* OverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D5881D3BB532543BD15619 /* OverviewView.swift */; };
 		7461E62B617039085AC3DE23 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC352B47323CD53BA64B015 /* Models.swift */; };
 		7CAC5A65DCDBEBD7E65E9920 /* TrendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46902CA0B076B416D10DED1 /* TrendsView.swift */; };
+		849BD786D06F4A22CB02DEC3 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27144E4E22945FA695FFE78 /* AuthService.swift */; };
 		90FA594790B1EEFF30223246 /* SwingGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C309A0A7195FF1E4B28F56 /* SwingGenerator.swift */; };
 		97A55FEC34407BDFFA9A35C0 /* Insights.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB39C7121AD7780DF68880CC /* Insights.swift */; };
 		9C2711B458D8632EEB096DC8 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C38E3D2B5C7DF78EAC207B /* Account.swift */; };
@@ -52,6 +55,7 @@
 		1EC0066F9EC820C8CDFF0ED2 /* SessionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetailView.swift; sourceTree = "<group>"; };
 		2B4644D426BA357AC586DEF0 /* PowerBandApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerBandApp.swift; sourceTree = "<group>"; };
 		2EFB5564EF09B6BBA2772E5A /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		374193FF2CE1367B03D3FE12 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		39C309A0A7195FF1E4B28F56 /* SwingGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwingGenerator.swift; sourceTree = "<group>"; };
 		4DF4D9059A42E9F034C48989 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		52A4E33670EAB13B4EC94081 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
@@ -67,6 +71,7 @@
 		A067D71EDE64786754F3FF24 /* LiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveView.swift; sourceTree = "<group>"; };
 		A3D5881D3BB532543BD15619 /* OverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewView.swift; sourceTree = "<group>"; };
 		A437D37363E1B96362FB03FE /* PowerBand.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = PowerBand.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B27144E4E22945FA695FFE78 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		B4C81336927338851678AC63 /* DeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceView.swift; sourceTree = "<group>"; };
 		BD238635FF3DAE52EFADC561 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		C3ED794AD1FB4E35FE4A3078 /* SensorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorManager.swift; sourceTree = "<group>"; };
@@ -75,8 +80,20 @@
 		D10487613F84E133F59608EA /* AccountViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViews.swift; sourceTree = "<group>"; };
 		D4C0A731B60951A96F0BB7F0 /* SwingPacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwingPacket.swift; sourceTree = "<group>"; };
 		DA8F7B957A7E70D872895B08 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
+		DF370697EA42443413D54219 /* PowerBand.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PowerBand.entitlements; sourceTree = "<group>"; };
 		E46902CA0B076B416D10DED1 /* TrendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		43A47951A0C8EB1735B90876 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				098D818729A5D54A323C5D6E /* FirebaseAuth in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		1C957FA108298E38048F012A /* Config */ = {
@@ -102,6 +119,7 @@
 			children = (
 				03C38E3D2B5C7DF78EAC207B /* Account.swift */,
 				9A1A7FF13E40F4F203AD10BD /* Achievements.swift */,
+				B27144E4E22945FA695FFE78 /* AuthService.swift */,
 				CB39C7121AD7780DF68880CC /* Insights.swift */,
 				6FC352B47323CD53BA64B015 /* Models.swift */,
 				2EFB5564EF09B6BBA2772E5A /* Store.swift */,
@@ -124,6 +142,7 @@
 			children = (
 				52A4E33670EAB13B4EC94081 /* Haptics.swift */,
 				BD238635FF3DAE52EFADC561 /* Info.plist */,
+				DF370697EA42443413D54219 /* PowerBand.entitlements */,
 				2B4644D426BA357AC586DEF0 /* PowerBandApp.swift */,
 				59860CA257F552E54016C947 /* PrivacyInfo.xcprivacy */,
 				714A5A0167D2B1FB99AE7319 /* Theme.swift */,
@@ -164,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				D10487613F84E133F59608EA /* AccountViews.swift */,
+				374193FF2CE1367B03D3FE12 /* AuthView.swift */,
 				DA8F7B957A7E70D872895B08 /* Components.swift */,
 				B4C81336927338851678AC63 /* DeviceView.swift */,
 				9F62A1008C2EF9D193118ABE /* HistoryView.swift */,
@@ -188,6 +208,7 @@
 			buildPhases = (
 				E6CA4B9537D6C120AEB8C71F /* Sources */,
 				FE6EC97F176E0A3EB94BC56B /* Resources */,
+				43A47951A0C8EB1735B90876 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -195,6 +216,7 @@
 			);
 			name = PowerBand;
 			packageProductDependencies = (
+				0C30964994F0623F6E8FA374 /* FirebaseAuth */,
 			);
 			productName = PowerBand;
 			productReference = A437D37363E1B96362FB03FE /* PowerBand.app */;
@@ -244,6 +266,9 @@
 			);
 			mainGroup = 22C7F3F7A1DEFA57F140834F;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				564C9F413D5C323EC805D554 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F38209BB4E690E1EED09BC91 /* Products */;
 			projectDirPath = "";
@@ -283,6 +308,8 @@
 				9C2711B458D8632EEB096DC8 /* Account.swift in Sources */,
 				FE26A436DE3EDF0B3D933B2D /* AccountViews.swift in Sources */,
 				23BF212A40DB8E3739CF90BF /* Achievements.swift in Sources */,
+				849BD786D06F4A22CB02DEC3 /* AuthService.swift in Sources */,
+				39CAF8C49BD0FD6EFC7CC8B0 /* AuthView.swift in Sources */,
 				C3AA7799E82FF619BFA6E3E9 /* Components.swift in Sources */,
 				5526EF9E97BEDF140B01FB8D /* DeviceView.swift in Sources */,
 				601948AB7B2B78494E09C39E /* Haptics.swift in Sources */,
@@ -398,6 +425,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = PowerBand/PowerBand.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = PowerBand/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -498,6 +526,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = PowerBand/PowerBand.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = PowerBand/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -541,6 +570,25 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		564C9F413D5C323EC805D554 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0C30964994F0623F6E8FA374 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 564C9F413D5C323EC805D554 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F6F80D618C5F3F1130FF3794 /* Project object */;
 }

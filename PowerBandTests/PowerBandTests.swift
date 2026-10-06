@@ -102,4 +102,42 @@ final class PowerBandTests: XCTestCase {
         XCTAssertEqual(defaults.integer(forKey: "dailyGoal"), 0)
         XCTAssertNil(Account(defaults: defaults, domain: suite).profile)
     }
+
+    func testAuthHelpers() {
+        XCTAssertTrue(AuthService.isValidEmail("sam@example.com"))
+        XCTAssertTrue(AuthService.isValidEmail(" sam.c+x@mail.co.uk "))
+        XCTAssertFalse(AuthService.isValidEmail("sam@"))
+        XCTAssertFalse(AuthService.isValidEmail("sam example.com"))
+        XCTAssertFalse(AuthService.isValidEmail(""))
+        let n = AuthService.randomNonce()
+        XCTAssertEqual(n.count, 32)
+        XCTAssertNotEqual(n, AuthService.randomNonce())
+        // SHA-256 of "abc"
+        XCTAssertEqual(AuthService.sha256("abc"), "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad")
+    }
+
+    @MainActor func testAuthRefusesWhenNotConfigured() async {
+        let auth = AuthService()
+        XCTAssertFalse(auth.isConfigured)           // no GoogleService-Info.plist in the test bundle
+        let ok = await auth.signIn(email: "sam@example.com", password: "password1")
+        XCTAssertFalse(ok)
+        XCTAssertEqual(auth.message, AuthService.notConfigured)
+        let bad = await auth.createAccount(name: "S", email: "nope", password: "x")
+        XCTAssertFalse(bad)
+        XCTAssertEqual(auth.message, "Enter a valid email address.")
+    }
+
+    @MainActor func testAccountAdoptsCloudUser() throws {
+        let suite = "pb-adopt-\(UUID().uuidString)"
+        let d = try XCTUnwrap(UserDefaults(suiteName: suite))
+        let account = Account(defaults: d, domain: suite)
+        account.create(name: "Local Sam", email: "")
+        account.signOut()
+        account.adopt(AuthUser(uid: "abc123", name: "Sam Carter", email: "sam@example.com", method: .apple))
+        XCTAssertTrue(account.signedIn)
+        XCTAssertEqual(account.profile?.authMethod, .apple)
+        XCTAssertEqual(account.profile?.uid, "abc123")
+        XCTAssertEqual(account.profile?.email, "sam@example.com")
+        XCTAssertEqual(Account(defaults: d, domain: suite).profile?.authMethod, .apple)
+    }
 }
