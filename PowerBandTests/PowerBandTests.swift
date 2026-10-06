@@ -116,15 +116,20 @@ final class PowerBandTests: XCTestCase {
         XCTAssertEqual(AuthService.sha256("abc"), "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad")
     }
 
-    @MainActor func testAuthRefusesWhenNotConfigured() async {
+    @MainActor func testAuthValidationAndNotConfiguredBehavior() async throws {
         let auth = AuthService()
-        XCTAssertFalse(auth.isConfigured)           // no GoogleService-Info.plist in the test bundle
-        let ok = await auth.signIn(email: "sam@example.com", password: "password1")
-        XCTAssertFalse(ok)
-        XCTAssertEqual(auth.message, AuthService.notConfigured)
+        // Validation happens before any network call, so this holds whether or not Firebase is configured.
         let bad = await auth.createAccount(name: "S", email: "nope", password: "x")
         XCTAssertFalse(bad)
         XCTAssertEqual(auth.message, "Enter a valid email address.")
+        let short = await auth.createAccount(name: "S", email: "sam@example.com", password: "short")
+        XCTAssertFalse(short)
+        XCTAssertEqual(auth.message, "Use at least 8 characters for your password.")
+        // The "not set up" path only exists when no GoogleService-Info.plist is bundled (a developer machine with Firebase set up skips it).
+        try XCTSkipIf(auth.isConfigured, "Firebase is configured in this build")
+        let ok = await auth.signIn(email: "sam@example.com", password: "password1")
+        XCTAssertFalse(ok)
+        XCTAssertEqual(auth.message, AuthService.notConfigured)
     }
 
     @MainActor func testAccountAdoptsCloudUser() throws {
