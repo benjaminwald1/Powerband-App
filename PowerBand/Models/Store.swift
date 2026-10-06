@@ -102,6 +102,53 @@ final class Store {
         Sport.allCases.map { s in (s, sessions.filter { $0.sport == s }.map(\.count).reduce(0, +)) }.filter { $0.1 > 0 }
     }
 
+    // MARK: Streaks and goals
+
+    /// Consecutive days with at least one session, counting back from today (or yesterday if you haven't played yet today).
+    var streak: Int {
+        let days = Set(sessions.map { cal.startOfDay(for: $0.start) })
+        var d = cal.startOfDay(for: Date())
+        if !days.contains(d) { d = cal.date(byAdding: .day, value: -1, to: d)! }
+        var n = 0
+        while days.contains(d) { n += 1; d = cal.date(byAdding: .day, value: -1, to: d)! }
+        return n
+    }
+
+    var bestStreak: Int {
+        let days = Set(sessions.map { cal.startOfDay(for: $0.start) }).sorted()
+        var best = 0, run = 0
+        var prev: Date?
+        for d in days {
+            if let p = prev, cal.date(byAdding: .day, value: 1, to: p) == d { run += 1 } else { run = 1 }
+            best = max(best, run); prev = d
+        }
+        return best
+    }
+
+    func bestSpeed(for sport: Sport) -> Double { sessions.filter { $0.sport == sport }.map(\.maxSpeed).max() ?? 0 }
+
+    enum Metric: String, CaseIterable, Identifiable {
+        case shots = "Shots", speed = "Speed", spin = "Spin", sweet = "Sweet spot"
+        var id: String { rawValue }
+    }
+
+    /// One value per day for the trends chart. Days with no data are nil.
+    func daily(_ metric: Metric, days: Int, sport: Sport?) -> [(date: Date, value: Double?)] {
+        let today = cal.startOfDay(for: Date())
+        return (0..<days).reversed().map { offset in
+            let d = cal.date(byAdding: .day, value: -offset, to: today)!
+            let day = sessions.filter { cal.isDate($0.start, inSameDayAs: d) && (sport == nil || $0.sport == sport) }
+            let swings = day.flatMap(\.swings)
+            guard !swings.isEmpty else { return (d, metric == .shots ? 0 : nil) }
+            switch metric {
+            case .shots: return (d, Double(swings.count))
+            case .speed: return (d, swings.map(\.swingMph).reduce(0, +) / Double(swings.count))
+            case .spin: let s = swings.filter { $0.spinRpm > 0 }; return (d, s.isEmpty ? nil : Double(s.map(\.spinRpm).reduce(0, +)) / Double(s.count))
+            case .sweet: let f = swings.filter { $0.sport.hasFace }; return (d, f.isEmpty ? nil : Double(f.filter(\.isSweetSpot).count) / Double(f.count) * 100)
+            }
+        }
+    }
+
     func csv() -> String {
         var rows = ["time,sport,kind,swing_mph,ball_mph,spin_rpm,path_deg,face_deg,impact_x,impact_y,tempo,force_n"]
         let f = ISO8601DateFormatter()

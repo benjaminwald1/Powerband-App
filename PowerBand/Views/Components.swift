@@ -262,3 +262,91 @@ func durationText(_ s: TimeInterval) -> String {
     let m = Int(s / 60)
     return m >= 60 ? "\(m / 60)h \(String(format: "%02d", m % 60))m" : "\(max(m, 1))m"
 }
+
+// MARK: v2 components
+
+/// 270-degree speed dial: the arc shows the last swing relative to your best.
+struct SpeedDial: View {
+    let value: Double
+    let best: Double
+    let label: String
+    let unit: String
+    var tint: Color = Theme.green
+
+    var body: some View {
+        let p = best > 0 ? min(value / best, 1) : 0
+        ZStack {
+            Circle().trim(from: 0, to: 0.75).stroke(Theme.track, style: StrokeStyle(lineWidth: 18, lineCap: .round)).rotationEffect(.degrees(135))
+            Circle().trim(from: 0, to: 0.75 * p)
+                .stroke(AngularGradient(colors: [tint.opacity(0.35), tint], center: .center, startAngle: .degrees(0), endAngle: .degrees(270 * max(p, 0.05))),
+                        style: StrokeStyle(lineWidth: 18, lineCap: .round))
+                .rotationEffect(.degrees(135))
+                .shadow(color: tint.opacity(0.55), radius: 10)
+                .animation(.spring(response: 0.55, dampingFraction: 0.7), value: p)
+            VStack(spacing: 0) {
+                Text(value > 0 ? String(Int(value.rounded())) : "–").font(.num(86)).foregroundStyle(.white)
+                    .contentTransition(.numericText()).animation(.snappy, value: value)
+                Text(unit.uppercased()).font(.system(size: 12, weight: .semibold)).tracking(2).foregroundStyle(Theme.muted)
+                Text(label).font(.system(size: 13, weight: .bold)).foregroundStyle(tint).padding(.top, 6)
+            }
+            .offset(y: -6)
+            if best > 0 {
+                Text("BEST \(Int(best.rounded()))").font(.system(size: 10, weight: .bold)).tracking(1.4).foregroundStyle(Theme.muted)
+                    .offset(y: 112)
+            }
+        }
+        .frame(width: 260, height: 260)
+    }
+}
+
+struct InsightCard: View {
+    let insight: Insight
+    var body: some View {
+        let c: Color = insight.tone == .good ? Theme.green : insight.tone == .warn ? Theme.volt : Theme.blue
+        HStack(alignment: .top, spacing: 12) {
+            Image(systemName: insight.symbol).font(.system(size: 15, weight: .semibold)).foregroundStyle(c)
+                .frame(width: 34, height: 34).background(c.opacity(0.14), in: Circle())
+            VStack(alignment: .leading, spacing: 3) {
+                Text(insight.title).font(.system(size: 14, weight: .bold)).foregroundStyle(.white)
+                Text(insight.text).font(.system(size: 12.5)).foregroundStyle(Color(hex: 0xB6BEC4)).fixedSize(horizontal: false, vertical: true)
+            }
+            Spacer(minLength: 0)
+        }
+        .card(padding: 12)
+    }
+}
+
+struct ShotChip: View {
+    let swing: Swing
+    let useMph: Bool
+    var isBest = false
+    var body: some View {
+        VStack(alignment: .leading, spacing: 2) {
+            Text(String(Int(Units.speed(swing.swingMph, useMph: useMph).rounded()))).font(.num(24)).foregroundStyle(isBest ? .black : .white)
+            Text(swing.kind.uppercased()).font(.system(size: 9, weight: .bold)).tracking(1).foregroundStyle(isBest ? .black.opacity(0.7) : Theme.muted)
+        }
+        .padding(.horizontal, 12).padding(.vertical, 8)
+        .background(isBest ? Theme.green : Theme.card, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+        .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous).stroke(Theme.cardStroke, lineWidth: 1))
+    }
+}
+
+struct FilterChips<T: Hashable>: View {
+    let options: [T]
+    @Binding var selection: T
+    let title: (T) -> String
+    var body: some View {
+        ScrollView(.horizontal) {
+            HStack(spacing: 8) {
+                ForEach(options, id: \.self) { o in
+                    Button { withAnimation(.snappy) { selection = o } } label: {
+                        Text(title(o)).font(.system(size: 13, weight: .semibold)).padding(.horizontal, 14).padding(.vertical, 8)
+                            .background(selection == o ? Color.white : Theme.card, in: Capsule())
+                            .foregroundStyle(selection == o ? .black : .white)
+                    }
+                }
+            }
+        }
+        .scrollIndicators(.hidden)
+    }
+}

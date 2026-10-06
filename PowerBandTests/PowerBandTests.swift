@@ -54,4 +54,24 @@ final class PowerBandTests: XCTestCase {
         reloaded.deleteAll()
         XCTAssertEqual(Store(url: url, seedDemoData: false).totalShots, 0)
     }
+
+    func testStreakInsightsAndAchievements() {
+        let store = Store(url: FileManager.default.temporaryDirectory.appendingPathComponent("pb-\(UUID().uuidString).json"), seedDemoData: false)
+        XCTAssertEqual(store.streak, 0)
+        let cal = Calendar.current
+        for back in 0..<4 {
+            let day = cal.date(byAdding: .day, value: -back, to: Date())!
+            let swings = (0..<60).map { SwingGenerator().make(sport: .tennis, at: day.addingTimeInterval(Double($0))) }
+            store.add(Session(sport: .tennis, start: day.addingTimeInterval(-300), end: day, swings: swings))
+        }
+        XCTAssertEqual(store.streak, 4)
+        XCTAssertGreaterThanOrEqual(store.bestStreak, 4)
+        let unlocked = Achievements.all.filter { $0.unlocked(store) }.map(\.id)
+        XCTAssertTrue(unlocked.contains("first") && unlocked.contains("100") && unlocked.contains("streak3"))
+        XCTAssertFalse(unlocked.contains("1k"))
+        let tips = InsightEngine.forSession(store.sessions[0], store: store)
+        XCTAssertFalse(tips.isEmpty)
+        let metric = store.daily(.shots, days: 7, sport: .tennis).compactMap(\.value).reduce(0, +)
+        XCTAssertEqual(Int(metric), 240)
+    }
 }

@@ -3,7 +3,9 @@ import Charts
 
 struct SessionDetailView: View {
     let session: Session
+    @Environment(Store.self) private var store
     @AppStorage("useMph") private var useMph = true
+    @State private var shareImage: Image?
 
     private var series: [(index: Int, mph: Double)] {
         let s = session.swings.sorted { $0.time < $1.time }
@@ -25,6 +27,9 @@ struct SessionDetailView: View {
                 Spacer()
                 Text("LOAD \(String(format: "%.1f", s.load))").font(.system(size: 10, weight: .bold)).tracking(1).foregroundStyle(.black).padding(.horizontal, 9).padding(.vertical, 4).background(Theme.blue, in: Capsule())
             }
+
+            let tips = InsightEngine.forSession(s, store: store)
+            if !tips.isEmpty { SectionLabel("INSIGHTS"); ForEach(tips) { InsightCard(insight: $0) } }
 
             VStack(alignment: .leading, spacing: 4) {
                 Kicker(s.sport.speedLabel)
@@ -72,6 +77,12 @@ struct SessionDetailView: View {
                     }
                 }
                 .card()
+            }
+        }
+        .task { let r = ImageRenderer(content: ShareCard(session: s, useMph: useMph)); r.scale = 3; if let ui = r.uiImage { shareImage = Image(uiImage: ui) } }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                if let img = shareImage { ShareLink(item: img, preview: SharePreview("PowerBand \(s.sport.title) session", image: img)) { Image(systemName: "square.and.arrow.up") } }
             }
         }
         .navigationTitle(s.sport.title)
