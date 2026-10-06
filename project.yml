@@ -5,6 +5,9 @@ options:
     iOS: "17.0"
   createIntermediateGroups: true
   generateEmptyDirectories: true
+configFiles:
+  Debug: Config/Base.xcconfig
+  Release: Config/Base.xcconfig
 settings:
   base:
     SWIFT_VERSION: "5.0"

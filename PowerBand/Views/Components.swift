@@ -74,7 +74,7 @@ struct StatTile: View {
                     .padding(.top, 2)
             }
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .card()
     }
 }

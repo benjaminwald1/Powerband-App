@@ -39,7 +39,10 @@ struct OnboardingView: View {
                 Button { if page < pages.count - 1 { withAnimation { page += 1 } } else { done() } } label: {
                     Text(page < pages.count - 1 ? "Continue" : "Get started").font(.system(size: 17, weight: .bold)).frame(maxWidth: .infinity).padding(.vertical, 16)
                 }
-                .buttonStyle(.borderedProminent).tint(Theme.green).foregroundStyle(.black).padding(.horizontal, 24).padding(.bottom, 20)
+                .buttonStyle(.borderedProminent).tint(Theme.green).foregroundStyle(.black).padding(.horizontal, 24)
+
+                Text("By continuing you agree to the [Terms of Service](https://powerband.fit/terms/) and [Privacy Policy](https://powerband.fit/privacy/).")
+                    .font(.system(size: 11)).foregroundStyle(Theme.muted).multilineTextAlignment(.center).padding(.horizontal, 32).padding(.bottom, 14)
             }
         }
     }

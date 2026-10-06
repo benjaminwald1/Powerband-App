@@ -101,6 +101,18 @@ struct DeviceView: View {
                 Button("Delete all", role: .destructive) { store.deleteAll() }
             }
 
+            SectionLabel("LEGAL")
+            VStack(spacing: 0) {
+                Link(destination: URL(string: "https://powerband.fit/privacy/")!) {
+                    HStack { Text("Privacy Policy").font(.system(size: 14, weight: .medium)).foregroundStyle(.white); Spacer(); Image(systemName: "arrow.up.right").font(.system(size: 12)).foregroundStyle(Theme.muted) }.padding(.vertical, 11)
+                }
+                Divider().overlay(Color.white.opacity(0.07))
+                Link(destination: URL(string: "https://powerband.fit/terms/")!) {
+                    HStack { Text("Terms of Service").font(.system(size: 14, weight: .medium)).foregroundStyle(.white); Spacer(); Image(systemName: "arrow.up.right").font(.system(size: 12)).foregroundStyle(Theme.muted) }.padding(.vertical, 11)
+                }
+            }
+            .card()
+
             Text("Your swings stay on this device. PowerBand never sells or uploads your data.").font(.system(size: 11)).foregroundStyle(Theme.muted).padding(.top, 4)
         }
     }

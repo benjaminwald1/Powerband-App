@@ -14,6 +14,7 @@
 		274EABFD59AD135355F3E8B1 /* SensorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3ED794AD1FB4E35FE4A3078 /* SensorManager.swift */; };
 		2E8F81BB2C933896F28F5A35 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F62A1008C2EF9D193118ABE /* HistoryView.swift */; };
 		3D37D708E60EDDB7FA443495 /* PowerBandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C918A2B75DFB9447A1CCC6F0 /* PowerBandTests.swift */; };
+		49C5B59A3A5736962675208E /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 59860CA257F552E54016C947 /* PrivacyInfo.xcprivacy */; };
 		5526EF9E97BEDF140B01FB8D /* DeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C81336927338851678AC63 /* DeviceView.swift */; };
 		667A4237A07BE99BFBD1B22D /* SwingPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C0A731B60951A96F0BB7F0 /* SwingPacket.swift */; };
 		703643F5D5E74FBB4138EDD5 /* OverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D5881D3BB532543BD15619 /* OverviewView.swift */; };
@@ -45,9 +46,11 @@
 		2EFB5564EF09B6BBA2772E5A /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		39C309A0A7195FF1E4B28F56 /* SwingGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwingGenerator.swift; sourceTree = "<group>"; };
 		584EEEBBBACEB4D676E841EC /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		59860CA257F552E54016C947 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		6FC352B47323CD53BA64B015 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		714A5A0167D2B1FB99AE7319 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		891DFF2EE8F159AF5A518983 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		978DA4DCB68E834C0021E880 /* Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
 		9F62A1008C2EF9D193118ABE /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		A067D71EDE64786754F3FF24 /* LiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveView.swift; sourceTree = "<group>"; };
 		A3D5881D3BB532543BD15619 /* OverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewView.swift; sourceTree = "<group>"; };
@@ -62,9 +65,18 @@
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		1C957FA108298E38048F012A /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				978DA4DCB68E834C0021E880 /* Base.xcconfig */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
 		22C7F3F7A1DEFA57F140834F = {
 			isa = PBXGroup;
 			children = (
+				1C957FA108298E38048F012A /* Config */,
 				66A698DE7DFC1A0BF554E1B7 /* PowerBand */,
 				AA8EB97ECF8A4A92DCEF82A7 /* PowerBandTests */,
 				F38209BB4E690E1EED09BC91 /* Products */,
@@ -95,6 +107,7 @@
 			children = (
 				BD238635FF3DAE52EFADC561 /* Info.plist */,
 				2B4644D426BA357AC586DEF0 /* PowerBandApp.swift */,
+				59860CA257F552E54016C947 /* PrivacyInfo.xcprivacy */,
 				714A5A0167D2B1FB99AE7319 /* Theme.swift */,
 				496202BD41CA9E65938E2270 /* Models */,
 				A65E79A7A53F2DC863CE787A /* Resources */,
@@ -193,6 +206,12 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
+					52D12C8679D485C897DFA3BC = {
+						ProvisioningStyle = Automatic;
+					};
+					52D6A570E5D3A4230541FC9C = {
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 2049242CBA9E61D85453DA47 /* Build configuration list for PBXProject "PowerBand" */;
@@ -221,6 +240,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				11DDE6F2D9C43A5EE4B46742 /* Assets.xcassets in Resources */,
+				49C5B59A3A5736962675208E /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,6 +291,7 @@
 /* Begin XCBuildConfiguration section */
 		09BFF705C990BF6EEE3A3630 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 978DA4DCB68E834C0021E880 /* Base.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -380,6 +401,7 @@
 		};
 		8197E49D06C76F57825471E2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 978DA4DCB68E834C0021E880 /* Base.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;

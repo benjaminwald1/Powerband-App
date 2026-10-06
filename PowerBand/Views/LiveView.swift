@@ -78,11 +78,13 @@ struct LiveView: View {
                 StatTile(label: "Ball speed", value: last.map { String(Int(Units.speed($0.ballMph, useMph: useMph))) } ?? "–", unit: Units.label(useMph: useMph), progress: last.map { $0.ballMph / max(store.bestBall, 1) }, progressColor: Theme.blue)
             }
         }
+        .fixedSize(horizontal: false, vertical: true)
         if sport.hasFace {
             HStack(spacing: 10) {
                 StatTile(label: "Spin", value: last.map { $0.spinRpm.formatted() } ?? "–", unit: "rpm", progress: last.map { Double($0.spinRpm) / 3500 }, progressColor: Theme.slate)
                 StatTile(label: "Path", value: last.map { String(format: "%.0f", $0.pathDeg) } ?? "–", unit: "°", progress: last.map { $0.pathDeg / 30 })
             }
+            .fixedSize(horizontal: false, vertical: true)
             FaceHeatmap(swings: swings)
         }
 
