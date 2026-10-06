@@ -28,11 +28,19 @@ xcodegen generate
 
 Open `PowerBand.xcodeproj`, pick your iPhone and press Run. Xcode creates the provisioning profile for `com.benjaminwald.powerband` the first time.
 
+## Bluetooth sensor
+
+The app connects to a sensor over Bluetooth LE, remembers the last one, auto-reconnects (including after a dropout mid-session), reads battery and firmware, and keeps streaming while the screen is locked. The wire format is in [docs/SENSOR_PROTOCOL.md](docs/SENSOR_PROTOCOL.md). To test it with no hardware, run the Mac emulator in `Tools/SensorEmulator` and connect from a real iPhone (the iOS Simulator has no Bluetooth).
+
+## TestFlight
+
+See [docs/TESTFLIGHT.md](docs/TESTFLIGHT.md) for the checklist, listing text and review notes, and `scripts/archive.sh` for building and uploading.
+
 ## Privacy and legal
 
 - All sessions stay on the phone. The app has no accounts, analytics, ads or tracking, and `PowerBand/PrivacyInfo.xcprivacy` declares exactly that (the only required-reason API used is UserDefaults, `CA92.1`).
 - Privacy Policy: https://powerband.fit/privacy/ and Terms of Service: https://powerband.fit/terms/. Both are linked from **Device > Legal** and from the last onboarding page. Use the privacy URL in App Store Connect.
-- The legal text is a draft. It still has placeholders for a support email and governing law, and it should be reviewed by a lawyer before launch.
+- The legal text is a draft. It still has a placeholder for governing law (the support email is set), and it should be reviewed by a lawyer before launch.
 
 ## Build
 

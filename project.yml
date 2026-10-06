@@ -30,6 +30,7 @@ targets:
           UIApplicationSupportsMultipleScenes: false
         NSBluetoothAlwaysUsageDescription: PowerBand uses Bluetooth to connect to your PowerBand sensor and sync your swings.
         UIUserInterfaceStyle: Dark
+        UIBackgroundModes: [bluetooth-central]
         ITSAppUsesNonExemptEncryption: false
     settings:
       base:

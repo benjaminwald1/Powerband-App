@@ -24,7 +24,10 @@ struct DeviceView: View {
                         Text(sensor.connectedName ?? "PowerBand").font(.system(size: 18, weight: .bold)).foregroundStyle(.white)
                         Label("Firmware \(sensor.firmware)", systemImage: "cpu").font(.system(size: 12)).foregroundStyle(Theme.muted)
                         Label("1,000 Hz sampling", systemImage: "waveform.path.ecg").font(.system(size: 12)).foregroundStyle(Theme.muted)
-                        Button("Disconnect") { sensor.disconnect() }.font(.system(size: 13, weight: .semibold)).buttonStyle(.bordered).tint(Theme.red)
+                        HStack {
+                            Button("Disconnect") { sensor.disconnect() }.font(.system(size: 13, weight: .semibold)).buttonStyle(.bordered).tint(Theme.red)
+                            Button("Forget") { sensor.disconnect(forget: true) }.font(.system(size: 13, weight: .semibold)).buttonStyle(.bordered).tint(Theme.muted)
+                        }
                     }
                     Spacer()
                 }
@@ -38,11 +41,13 @@ struct DeviceView: View {
                     }
                     .buttonStyle(.borderedProminent).tint(Theme.green).foregroundStyle(.black).disabled(sensor.state == .scanning)
                     if !sensor.bluetoothNote.isEmpty { Text(sensor.bluetoothNote).font(.system(size: 11)).foregroundStyle(Theme.muted) }
+                    if !sensor.errorNote.isEmpty { Text(sensor.errorNote).font(.system(size: 11, weight: .medium)).foregroundStyle(Theme.red) }
+                    if let last = sensor.rememberedName, sensor.state == .idle { Text("Last connected: \(last)").font(.system(size: 11)).foregroundStyle(Theme.muted) }
                     ForEach(sensor.found) { f in
                         Button { sensor.connect(f) } label: {
                             HStack { Image(systemName: f.isDemo ? "sparkles" : "dot.radiowaves.left.and.right").foregroundStyle(Theme.green)
                                 Text(f.name).font(.system(size: 14, weight: .semibold)).foregroundStyle(.white); Spacer()
-                                if case .connecting(let n) = sensor.state, n == f.name { ProgressView() } else { Text("Connect").font(.system(size: 12, weight: .semibold)).foregroundStyle(Theme.green) } }
+                                if case .connecting(let n) = sensor.state, n == f.name { ProgressView() } else { HStack(spacing: 6) { if let r = f.rssi { Image(systemName: r > -60 ? "wifi" : r > -75 ? "wifi" : "wifi.exclamationmark").font(.system(size: 11)).foregroundStyle(Theme.muted) }; Text("Connect").font(.system(size: 12, weight: .semibold)).foregroundStyle(Theme.green) } } }
                             .padding(12).background(Color.white.opacity(0.05), in: RoundedRectangle(cornerRadius: 12))
                         }
                     }
@@ -101,10 +106,14 @@ struct DeviceView: View {
                 Button("Delete all", role: .destructive) { store.deleteAll() }
             }
 
-            SectionLabel("LEGAL")
+            SectionLabel("HELP & LEGAL")
             VStack(spacing: 0) {
                 Link(destination: URL(string: "https://powerband.fit/privacy/")!) {
                     HStack { Text("Privacy Policy").font(.system(size: 14, weight: .medium)).foregroundStyle(.white); Spacer(); Image(systemName: "arrow.up.right").font(.system(size: 12)).foregroundStyle(Theme.muted) }.padding(.vertical, 11)
+                }
+                Divider().overlay(Color.white.opacity(0.07))
+                Link(destination: URL(string: "mailto:Benjaminwald11@gmail.com?subject=PowerBand%20support")!) {
+                    HStack { Text("Contact support").font(.system(size: 14, weight: .medium)).foregroundStyle(.white); Spacer(); Image(systemName: "envelope").font(.system(size: 12)).foregroundStyle(Theme.muted) }.padding(.vertical, 11)
                 }
                 Divider().overlay(Color.white.opacity(0.07))
                 Link(destination: URL(string: "https://powerband.fit/terms/")!) {

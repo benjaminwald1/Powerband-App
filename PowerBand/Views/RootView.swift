@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct RootView: View {
-    @State private var tab = 0
+    @State private var tab = UserDefaults.standard.integer(forKey: "startTab")
     var body: some View {
         TabView(selection: $tab) {
             OverviewView(goLive: { tab = 1 }).tabItem { Label("Overview", systemImage: "house.fill") }.tag(0)
