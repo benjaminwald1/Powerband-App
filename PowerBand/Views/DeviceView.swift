@@ -3,9 +3,7 @@ import SwiftUI
 struct DeviceView: View {
     @Environment(Store.self) private var store
     @Environment(SensorManager.self) private var sensor
-    @AppStorage("useMph") private var useMph = true
     @AppStorage("bandColor") private var bandColor = "Mocha"
-    @State private var confirmDelete = false
 
     static let bands: [(name: String, color: Color)] = [
         ("Mocha", Color(hex: 0x6B4A3B)), ("Onyx", Color(hex: 0x2B2B2D)), ("Cognac", Color(hex: 0xB07A4A)), ("Navy", Color(hex: 0x2C3E6B)),
@@ -82,47 +80,6 @@ struct DeviceView: View {
                 Text(bandColor).font(.system(size: 12, weight: .semibold)).foregroundStyle(Theme.muted)
             }
             .frame(maxWidth: .infinity, alignment: .leading).card()
-
-            SectionLabel("SETTINGS")
-            VStack(spacing: 0) {
-                HStack { Text("Speed units").font(.system(size: 14, weight: .medium)).foregroundStyle(.white); Spacer()
-                    Picker("Units", selection: $useMph) { Text("mph").tag(true); Text("km/h").tag(false) }.pickerStyle(.segmented).frame(width: 140) }
-                    .padding(.vertical, 8)
-                Divider().overlay(Color.white.opacity(0.07))
-                ShareLink(item: store.csv(), subject: Text("PowerBand shots"), message: Text("PowerBand export")) {
-                    HStack { Text("Export all shots (CSV)").font(.system(size: 14, weight: .medium)).foregroundStyle(.white); Spacer(); Image(systemName: "square.and.arrow.up").foregroundStyle(Theme.muted) }.padding(.vertical, 11)
-                }
-                Divider().overlay(Color.white.opacity(0.07))
-                Button { store.loadDemoData() } label: {
-                    HStack { Text("Load demo history").font(.system(size: 14, weight: .medium)).foregroundStyle(.white); Spacer() }.padding(.vertical, 11)
-                }
-                Divider().overlay(Color.white.opacity(0.07))
-                Button(role: .destructive) { confirmDelete = true } label: {
-                    HStack { Text("Delete all data").font(.system(size: 14, weight: .medium)); Spacer() }.padding(.vertical, 11)
-                }
-            }
-            .card()
-            .confirmationDialog("Delete every session on this phone?", isPresented: $confirmDelete, titleVisibility: .visible) {
-                Button("Delete all", role: .destructive) { store.deleteAll() }
-            }
-
-            SectionLabel("HELP & LEGAL")
-            VStack(spacing: 0) {
-                Link(destination: URL(string: "https://powerband.fit/privacy/")!) {
-                    HStack { Text("Privacy Policy").font(.system(size: 14, weight: .medium)).foregroundStyle(.white); Spacer(); Image(systemName: "arrow.up.right").font(.system(size: 12)).foregroundStyle(Theme.muted) }.padding(.vertical, 11)
-                }
-                Divider().overlay(Color.white.opacity(0.07))
-                Link(destination: URL(string: "mailto:Benjaminwald11@gmail.com?subject=PowerBand%20support")!) {
-                    HStack { Text("Contact support").font(.system(size: 14, weight: .medium)).foregroundStyle(.white); Spacer(); Image(systemName: "envelope").font(.system(size: 12)).foregroundStyle(Theme.muted) }.padding(.vertical, 11)
-                }
-                Divider().overlay(Color.white.opacity(0.07))
-                Link(destination: URL(string: "https://powerband.fit/terms/")!) {
-                    HStack { Text("Terms of Service").font(.system(size: 14, weight: .medium)).foregroundStyle(.white); Spacer(); Image(systemName: "arrow.up.right").font(.system(size: 12)).foregroundStyle(Theme.muted) }.padding(.vertical, 11)
-                }
-            }
-            .card()
-
-            Text("Your swings stay on this device. PowerBand never sells or uploads your data.").font(.system(size: 11)).foregroundStyle(Theme.muted).padding(.top, 4)
         }
     }
 }

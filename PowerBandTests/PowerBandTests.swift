@@ -74,4 +74,32 @@ final class PowerBandTests: XCTestCase {
         let metric = store.daily(.shots, days: 7, sport: .tennis).compactMap(\.value).reduce(0, +)
         XCTAssertEqual(Int(metric), 240)
     }
+
+    @MainActor func testAccountSignOutAndDelete() throws {
+        let suite = "pb-account-test-\(UUID().uuidString)"
+        let defaults = try XCTUnwrap(UserDefaults(suiteName: suite))
+        let account = Account(defaults: defaults, domain: suite)
+        XCTAssertNil(account.profile)
+        account.create(name: "  Sam ", email: "sam@example.com")
+        XCTAssertEqual(account.profile?.name, "Sam")
+        XCTAssertTrue(account.signedIn)
+        defaults.set(321, forKey: "dailyGoal")
+
+        account.signOut()
+        XCTAssertFalse(account.signedIn)
+        let reloaded = Account(defaults: defaults, domain: suite)
+        XCTAssertEqual(reloaded.profile?.email, "sam@example.com")
+        XCTAssertFalse(reloaded.signedIn)
+        reloaded.signIn()
+        XCTAssertTrue(Account(defaults: defaults, domain: suite).signedIn)
+
+        let store = Store(url: FileManager.default.temporaryDirectory.appendingPathComponent("pb-\(UUID().uuidString).json"), seedDemoData: false)
+        store.add(Session(sport: .tennis, start: Date().addingTimeInterval(-60), end: Date(), swings: [SwingGenerator().make(sport: .tennis, at: Date())]))
+        XCTAssertEqual(store.totalShots, 1)
+        reloaded.deleteAccount(store: store, sensor: SensorManager())
+        XCTAssertNil(reloaded.profile)
+        XCTAssertEqual(store.totalShots, 0)
+        XCTAssertEqual(defaults.integer(forKey: "dailyGoal"), 0)
+        XCTAssertNil(Account(defaults: defaults, domain: suite).profile)
+    }
 }

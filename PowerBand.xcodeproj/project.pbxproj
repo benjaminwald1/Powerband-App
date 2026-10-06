@@ -25,12 +25,14 @@
 		7CAC5A65DCDBEBD7E65E9920 /* TrendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46902CA0B076B416D10DED1 /* TrendsView.swift */; };
 		90FA594790B1EEFF30223246 /* SwingGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C309A0A7195FF1E4B28F56 /* SwingGenerator.swift */; };
 		97A55FEC34407BDFFA9A35C0 /* Insights.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB39C7121AD7780DF68880CC /* Insights.swift */; };
+		9C2711B458D8632EEB096DC8 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C38E3D2B5C7DF78EAC207B /* Account.swift */; };
 		A80C5FCA2F2E62CE14E282BC /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A5A0167D2B1FB99AE7319 /* Theme.swift */; };
 		A8941FFC6524BEE3D4AF10AE /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891DFF2EE8F159AF5A518983 /* OnboardingView.swift */; };
 		B574D1E7CC5D955A0479117B /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF4D9059A42E9F034C48989 /* ProfileView.swift */; };
 		C3AA7799E82FF619BFA6E3E9 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8F7B957A7E70D872895B08 /* Components.swift */; };
 		C61348794EC46C596FDC201A /* SessionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC0066F9EC820C8CDFF0ED2 /* SessionDetailView.swift */; };
 		CB249EC22294840378D0F4A9 /* PowerBandApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4644D426BA357AC586DEF0 /* PowerBandApp.swift */; };
+		FE26A436DE3EDF0B3D933B2D /* AccountViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10487613F84E133F59608EA /* AccountViews.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +47,7 @@
 
 /* Begin PBXFileReference section */
 		032272F41399BF1460A1BFA9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		03C38E3D2B5C7DF78EAC207B /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		068F8F9D63AC7846A34B0536 /* PowerBandTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = PowerBandTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EC0066F9EC820C8CDFF0ED2 /* SessionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetailView.swift; sourceTree = "<group>"; };
 		2B4644D426BA357AC586DEF0 /* PowerBandApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerBandApp.swift; sourceTree = "<group>"; };
@@ -69,6 +72,7 @@
 		C3ED794AD1FB4E35FE4A3078 /* SensorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorManager.swift; sourceTree = "<group>"; };
 		C918A2B75DFB9447A1CCC6F0 /* PowerBandTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerBandTests.swift; sourceTree = "<group>"; };
 		CB39C7121AD7780DF68880CC /* Insights.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Insights.swift; sourceTree = "<group>"; };
+		D10487613F84E133F59608EA /* AccountViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViews.swift; sourceTree = "<group>"; };
 		D4C0A731B60951A96F0BB7F0 /* SwingPacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwingPacket.swift; sourceTree = "<group>"; };
 		DA8F7B957A7E70D872895B08 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
 		E46902CA0B076B416D10DED1 /* TrendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsView.swift; sourceTree = "<group>"; };
@@ -96,6 +100,7 @@
 		496202BD41CA9E65938E2270 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				03C38E3D2B5C7DF78EAC207B /* Account.swift */,
 				9A1A7FF13E40F4F203AD10BD /* Achievements.swift */,
 				CB39C7121AD7780DF68880CC /* Insights.swift */,
 				6FC352B47323CD53BA64B015 /* Models.swift */,
@@ -158,6 +163,7 @@
 		FEF0DA7F3FBA550DC0302928 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D10487613F84E133F59608EA /* AccountViews.swift */,
 				DA8F7B957A7E70D872895B08 /* Components.swift */,
 				B4C81336927338851678AC63 /* DeviceView.swift */,
 				9F62A1008C2EF9D193118ABE /* HistoryView.swift */,
@@ -274,6 +280,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C2711B458D8632EEB096DC8 /* Account.swift in Sources */,
+				FE26A436DE3EDF0B3D933B2D /* AccountViews.swift in Sources */,
 				23BF212A40DB8E3739CF90BF /* Achievements.swift in Sources */,
 				C3AA7799E82FF619BFA6E3E9 /* Components.swift in Sources */,
 				5526EF9E97BEDF140B01FB8D /* DeviceView.swift in Sources */,

@@ -29,7 +29,7 @@ Each upload needs a new build number: `./scripts/archive.sh 12`.
 - **What to Test:** Pair the Demo PowerBand (Device > Scan for sensors > Demo PowerBand > Connect), start a Live session in each sport, end it, and check the session detail, History and Trends. Report anything confusing, slow or broken.
 - **Feedback email:** `Benjaminwald11@gmail.com`
 - **Beta App Review contact:** your name, phone, email.
-- **Review notes:** "No account or login is needed. The sensor hardware is not released yet, so the app includes a Demo PowerBand that streams simulated swings: Device tab > Scan for sensors > Demo PowerBand > Connect, then Live > Start session."
+- **Review notes:** "There is no server login: the app creates an on-device profile on first launch (tap Skip for now to bypass it). Sign out and Delete account are in the Account tab. The sensor hardware is not released yet, so the app includes a Demo PowerBand that streams simulated swings: Device tab > Scan for sensors > Demo PowerBand > Connect, then Live > Start session."
 - **Export compliance:** the app only uses standard OS encryption (`ITSAppUsesNonExemptEncryption = false` is already set).
 
 ## 4. App Store listing (draft)

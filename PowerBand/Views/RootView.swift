@@ -6,9 +6,9 @@ struct RootView: View {
         TabView(selection: $tab) {
             OverviewView(goLive: { tab = 1 }).tabItem { Label("Overview", systemImage: "house.fill") }.tag(0)
             LiveView().tabItem { Label("Live", systemImage: "bolt.fill") }.tag(1)
-            HistoryView().tabItem { Label("History", systemImage: "list.bullet.rectangle.fill") }.tag(2)
-            TrendsView().tabItem { Label("Trends", systemImage: "chart.bar.fill") }.tag(3)
-            DeviceView().tabItem { Label("Device", systemImage: "dot.radiowaves.left.and.right") }.tag(4)
+            ProgressHub().tabItem { Label("Progress", systemImage: "chart.bar.fill") }.tag(2)
+            DeviceView().tabItem { Label("Device", systemImage: "dot.radiowaves.left.and.right") }.tag(3)
+            AccountView().tabItem { Label("Account", systemImage: "person.crop.circle.fill") }.tag(4)
         }
         .toolbarBackground(Theme.card, for: .tabBar)
         .toolbarBackground(.visible, for: .tabBar)

@@ -8,8 +8,9 @@ Native iPhone app (SwiftUI, iOS 17+) for the [PowerBand](https://powerband.fit) 
 - **Live**: pick a sport, start a session, watch every shot arrive (speed, ball speed, spin, path, contact heat map)
 - **History / Session detail**: per-session charts, racquet-face heat map, swing-path diagram, spin and punch breakdowns
 - **Trends**: shots per day, personal bests, sport split
-- **Device**: pair a sensor, mount type, band color, units, CSV export, delete all data
-- On-device storage only. Nothing is uploaded.
+- **Device**: pair a sensor, mount type, band color
+- **Account**: on-device profile (name, optional email), preferences, CSV export, Achievements, Privacy Policy / Terms of Service / support links, **Sign out** and **Delete account**
+- On-device storage only. Nothing is uploaded. The account is a local profile: there is no server, password or cloud sync. Signing out keeps your sessions on the phone; deleting the account wipes the profile, all sessions and all settings.
 
 ## Sensor
 
