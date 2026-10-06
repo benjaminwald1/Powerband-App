@@ -20,6 +20,7 @@
 		3D37D708E60EDDB7FA443495 /* PowerBandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C918A2B75DFB9447A1CCC6F0 /* PowerBandTests.swift */; };
 		49C5B59A3A5736962675208E /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 59860CA257F552E54016C947 /* PrivacyInfo.xcprivacy */; };
 		5526EF9E97BEDF140B01FB8D /* DeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C81336927338851678AC63 /* DeviceView.swift */; };
+		55F1C74FDFE372D43DB42593 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F004D4B03BAB368FC6CC5EB5 /* GoogleService-Info.plist */; };
 		601948AB7B2B78494E09C39E /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A4E33670EAB13B4EC94081 /* Haptics.swift */; };
 		667A4237A07BE99BFBD1B22D /* SwingPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C0A731B60951A96F0BB7F0 /* SwingPacket.swift */; };
 		703643F5D5E74FBB4138EDD5 /* OverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D5881D3BB532543BD15619 /* OverviewView.swift */; };
@@ -82,6 +83,7 @@
 		DA8F7B957A7E70D872895B08 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
 		DF370697EA42443413D54219 /* PowerBand.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PowerBand.entitlements; sourceTree = "<group>"; };
 		E46902CA0B076B416D10DED1 /* TrendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsView.swift; sourceTree = "<group>"; };
+		F004D4B03BAB368FC6CC5EB5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				032272F41399BF1460A1BFA9 /* Assets.xcassets */,
+				F004D4B03BAB368FC6CC5EB5 /* GoogleService-Info.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -286,6 +289,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				11DDE6F2D9C43A5EE4B46742 /* Assets.xcassets in Resources */,
+				55F1C74FDFE372D43DB42593 /* GoogleService-Info.plist in Resources */,
 				49C5B59A3A5736962675208E /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

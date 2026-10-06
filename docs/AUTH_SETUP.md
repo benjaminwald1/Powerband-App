@@ -2,7 +2,15 @@
 
 The app is wired for Firebase Authentication. Until you add a config file it runs in **local mode** (on-device profile only), so nothing breaks. These are the steps only you can do.
 
-## 1. Firebase project (5 minutes)
+## Status (already done on this Mac)
+
+- Firebase project **powerband-app-6f59** created and the iOS app `com.benjaminwald.powerband` registered (project owner: the Google account the Firebase CLI was logged in with).
+- `GoogleService-Info.plist` is saved at `PowerBand/Resources/` (git-ignored) and the URL scheme is in `Local.xcconfig`.
+- Still manual: turn on the three sign-in methods in the console (link below), then re-download the config.
+
+`./scripts/firebase-bootstrap.sh` does the project/app/config part again on any machine after `npx firebase-tools login`.
+
+## 1. Firebase project (5 minutes, if you do it by hand)
 
 1. Go to console.firebase.google.com, **Add project** (name it PowerBand; Google Analytics can stay off).
 2. **Project settings > Your apps > Add app > iOS**. Bundle ID: `com.benjaminwald.powerband`. Download **GoogleService-Info.plist**.
@@ -23,7 +31,7 @@ The app declares the *Sign in with Apple* entitlement (`PowerBand.entitlements`)
 ./scripts/setup-auth.sh
 ```
 
-This reads your plist and writes the URL schemes into the git-ignored `Local.xcconfig`, then regenerates the project.
+After you enable Google in the console, re-download the config first (`npx firebase-tools apps:sdkconfig IOS <app id> --project <project> --out PowerBand/Resources/GoogleService-Info.plist`) so it contains `REVERSED_CLIENT_ID`. This reads your plist and writes the URL schemes into the git-ignored `Local.xcconfig`, then regenerates the project.
 
 ## 4. Test
 
