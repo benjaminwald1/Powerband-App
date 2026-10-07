@@ -145,4 +145,11 @@ final class PowerBandTests: XCTestCase {
         XCTAssertEqual(account.profile?.email, "sam@example.com")
         XCTAssertEqual(Account(defaults: d, domain: suite).profile?.authMethod, .apple)
     }
+
+    func testMovementScore() {
+        XCTAssertEqual(MovementStore.score(steps: 0, goal: 8000, activeHours: 0), 0)
+        XCTAssertEqual(MovementStore.score(steps: 8000, goal: 8000, activeHours: 8), 100)
+        XCTAssertEqual(MovementStore.score(steps: 4000, goal: 8000, activeHours: 4), 50)
+        XCTAssertEqual(MovementStore.score(steps: 99999, goal: 8000, activeHours: 20), 100)
+    }
 }

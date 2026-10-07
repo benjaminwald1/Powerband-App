@@ -42,6 +42,7 @@ targets:
         UIApplicationSceneManifest:
           UIApplicationSupportsMultipleScenes: false
         NSBluetoothAlwaysUsageDescription: PowerBand uses Bluetooth to connect to your PowerBand sensor and sync your swings.
+        NSMotionUsageDescription: PowerBand uses Motion & Fitness to count your daily steps and active time so it can show your movement score. This stays on your device.
         UIUserInterfaceStyle: Dark
         UIBackgroundModes: [bluetooth-central]
         CFBundleURLTypes:

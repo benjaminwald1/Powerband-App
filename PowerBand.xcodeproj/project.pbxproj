@@ -21,6 +21,7 @@
 		49C5B59A3A5736962675208E /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 59860CA257F552E54016C947 /* PrivacyInfo.xcprivacy */; };
 		5526EF9E97BEDF140B01FB8D /* DeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C81336927338851678AC63 /* DeviceView.swift */; };
 		55F1C74FDFE372D43DB42593 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F004D4B03BAB368FC6CC5EB5 /* GoogleService-Info.plist */; };
+		5D4239CBED490A670CFFCD4C /* Movement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E17FE687DA8AE386AAA470 /* Movement.swift */; };
 		601948AB7B2B78494E09C39E /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A4E33670EAB13B4EC94081 /* Haptics.swift */; };
 		667A4237A07BE99BFBD1B22D /* SwingPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C0A731B60951A96F0BB7F0 /* SwingPacket.swift */; };
 		703643F5D5E74FBB4138EDD5 /* OverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D5881D3BB532543BD15619 /* OverviewView.swift */; };
@@ -30,6 +31,7 @@
 		90FA594790B1EEFF30223246 /* SwingGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C309A0A7195FF1E4B28F56 /* SwingGenerator.swift */; };
 		97A55FEC34407BDFFA9A35C0 /* Insights.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB39C7121AD7780DF68880CC /* Insights.swift */; };
 		9C2711B458D8632EEB096DC8 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C38E3D2B5C7DF78EAC207B /* Account.swift */; };
+		A3994CDF0FC24846BF4DC03F /* MovementCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30C7B91EE637C94DE7C371C /* MovementCard.swift */; };
 		A80C5FCA2F2E62CE14E282BC /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A5A0167D2B1FB99AE7319 /* Theme.swift */; };
 		A8941FFC6524BEE3D4AF10AE /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891DFF2EE8F159AF5A518983 /* OnboardingView.swift */; };
 		B574D1E7CC5D955A0479117B /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF4D9059A42E9F034C48989 /* ProfileView.swift */; };
@@ -64,6 +66,7 @@
 		59860CA257F552E54016C947 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		6FC352B47323CD53BA64B015 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		714A5A0167D2B1FB99AE7319 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		83E17FE687DA8AE386AAA470 /* Movement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movement.swift; sourceTree = "<group>"; };
 		891DFF2EE8F159AF5A518983 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		8C42F9F47FD3C90BDB2FC282 /* ShareCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCard.swift; sourceTree = "<group>"; };
 		978DA4DCB68E834C0021E880 /* Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
@@ -73,6 +76,7 @@
 		A3D5881D3BB532543BD15619 /* OverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewView.swift; sourceTree = "<group>"; };
 		A437D37363E1B96362FB03FE /* PowerBand.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = PowerBand.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B27144E4E22945FA695FFE78 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		B30C7B91EE637C94DE7C371C /* MovementCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementCard.swift; sourceTree = "<group>"; };
 		B4C81336927338851678AC63 /* DeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceView.swift; sourceTree = "<group>"; };
 		BD238635FF3DAE52EFADC561 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		C3ED794AD1FB4E35FE4A3078 /* SensorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorManager.swift; sourceTree = "<group>"; };
@@ -124,6 +128,7 @@
 				B27144E4E22945FA695FFE78 /* AuthService.swift */,
 				CB39C7121AD7780DF68880CC /* Insights.swift */,
 				6FC352B47323CD53BA64B015 /* Models.swift */,
+				83E17FE687DA8AE386AAA470 /* Movement.swift */,
 				2EFB5564EF09B6BBA2772E5A /* Store.swift */,
 				39C309A0A7195FF1E4B28F56 /* SwingGenerator.swift */,
 			);
@@ -191,6 +196,7 @@
 				B4C81336927338851678AC63 /* DeviceView.swift */,
 				9F62A1008C2EF9D193118ABE /* HistoryView.swift */,
 				A067D71EDE64786754F3FF24 /* LiveView.swift */,
+				B30C7B91EE637C94DE7C371C /* MovementCard.swift */,
 				891DFF2EE8F159AF5A518983 /* OnboardingView.swift */,
 				A3D5881D3BB532543BD15619 /* OverviewView.swift */,
 				4DF4D9059A42E9F034C48989 /* ProfileView.swift */,
@@ -321,6 +327,8 @@
 				97A55FEC34407BDFFA9A35C0 /* Insights.swift in Sources */,
 				13BCE1E1980B17D4F8D494FD /* LiveView.swift in Sources */,
 				7461E62B617039085AC3DE23 /* Models.swift in Sources */,
+				5D4239CBED490A670CFFCD4C /* Movement.swift in Sources */,
+				A3994CDF0FC24846BF4DC03F /* MovementCard.swift in Sources */,
 				A8941FFC6524BEE3D4AF10AE /* OnboardingView.swift in Sources */,
 				703643F5D5E74FBB4138EDD5 /* OverviewView.swift in Sources */,
 				CB249EC22294840378D0F4A9 /* PowerBandApp.swift in Sources */,

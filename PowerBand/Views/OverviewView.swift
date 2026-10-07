@@ -31,6 +31,9 @@ struct OverviewView: View {
                 }
                 Text(greeting).font(.system(size: 14)).foregroundStyle(Theme.muted).padding(.top, -6)
 
+                MovementCard()
+
+                SectionLabel("ON THE COURT")
                 HStack(alignment: .top) {
                     RingView(progress: store.power, color: Theme.green, value: "\(Int(store.power * 100))%", label: "Power", size: 104)
                     Spacer()
