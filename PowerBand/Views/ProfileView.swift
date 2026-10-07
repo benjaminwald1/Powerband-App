@@ -8,6 +8,7 @@ struct ProfileView: View {
     @AppStorage("weightKg") private var weightKg = 70.0
     @AppStorage("useMph") private var useMph = true
     @AppStorage("hapticsOn") private var hapticsOn = true
+    @AppStorage("autoRecord") private var autoRecord = true
     @AppStorage("voiceOn") private var voiceOn = false
 
     var body: some View {
@@ -30,6 +31,7 @@ struct ProfileView: View {
                     Stepper(value: $goal, in: 50...1000, step: 25) {
                         HStack(alignment: .firstTextBaseline, spacing: 4) { Text("\(goal)").font(.num(30)).foregroundStyle(.white); Text("shots a day").font(.system(size: 12)).foregroundStyle(Theme.muted) }
                     }
+                    Toggle("Record sessions automatically", isOn: $autoRecord)
                     Toggle("Haptic tap on every shot", isOn: $hapticsOn)
                     Toggle("Speak swing speed aloud", isOn: $voiceOn)
                 }

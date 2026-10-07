@@ -7,6 +7,7 @@ struct PowerBandApp: App {
     @State private var account = Account()
     @State private var auth = AuthService()
     @State private var movement = MovementStore()
+    @State private var auto = AutoRecorder()
     @AppStorage("onboarded") private var onboarded = false
 
     var body: some Scene {
@@ -22,6 +23,7 @@ struct PowerBandApp: App {
             .environment(account)
             .environment(auth)
             .environment(movement)
+            .environment(auto)
             .task {
                 // A cloud account whose session expired or was revoked has to sign in again.
                 if let p = account.profile, p.authMethod != .local, account.signedIn, auth.isConfigured, auth.user == nil { account.signOut() }

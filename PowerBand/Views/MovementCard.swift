@@ -62,6 +62,7 @@ struct MovementCard: View {
                         .padding(10).frame(maxWidth: .infinity, alignment: .leading)
                         .background(Theme.volt.opacity(0.12), in: RoundedRectangle(cornerRadius: 12))
                 }
+                dayTimeline
                 if move.week.contains(where: { $0.steps > 0 }) {
                     Chart(move.week) { d in
                         BarMark(x: .value("Day", d.date, unit: .day), y: .value("Steps", d.steps), width: .fixed(16))
@@ -80,6 +81,39 @@ struct MovementCard: View {
         .onChange(of: phase) { _, p in if p == .active { Task { await move.refresh() } } }
     }
 
+    /// One strip for the whole day: steps by hour with sport sessions marked on top.
+    private var dayTimeline: some View {
+        let cal = Calendar.current
+        let sessions = store.todaySessions
+        func hourFloat(_ d: Date) -> Double { Double(cal.component(.hour, from: d)) + Double(cal.component(.minute, from: d)) / 60 }
+        return VStack(alignment: .leading, spacing: 6) {
+            HStack {
+                Text("TODAY, HOUR BY HOUR").font(.system(size: 9, weight: .bold)).tracking(1).foregroundStyle(Theme.muted)
+                Spacer()
+                Label("Steps", systemImage: "circle.fill").foregroundStyle(Theme.green)
+                Label("Sport", systemImage: "circle.fill").foregroundStyle(Theme.blue)
+            }.font(.system(size: 9, weight: .semibold)).labelStyle(DotLabel())
+            Chart {
+                ForEach(0..<24, id: \.self) { h in
+                    BarMark(x: .value("Hour", Double(h) + 0.5), y: .value("Steps", move.hourly[h]), width: .fixed(9))
+                        .foregroundStyle(Theme.green.opacity(move.hourly[h] >= 250 ? 1 : 0.35))
+                        .clipShape(RoundedRectangle(cornerRadius: 3))
+                }
+                ForEach(sessions) { s in
+                    RectangleMark(xStart: .value("Start", hourFloat(s.start)), xEnd: .value("End", max(hourFloat(s.end), hourFloat(s.start) + 0.4)), yStart: .value("Base", 0), yEnd: .value("Top", max(move.hourly.max() ?? 1000, 1000)))
+                        .foregroundStyle(Theme.blue.opacity(0.28))
+                }
+            }
+            .chartXScale(domain: 0...24)
+            .chartXAxis { AxisMarks(values: [0, 6, 12, 18, 24]) { v in AxisValueLabel { Text(["12a", "6a", "12p", "6p", ""][min(4, (v.as(Int.self) ?? 0) / 6)]).foregroundStyle(Theme.muted) } } }
+            .chartYAxis(.hidden)
+            .frame(height: 70)
+            if let s = sessions.first {
+                Text("\(s.sport.title) at \(s.start.formatted(.dateTime.hour().minute())) · \(Int(s.totalCalories(weightKg: weightKg))) kcal").font(.system(size: 11)).foregroundStyle(Theme.muted)
+            }
+        }
+    }
+
     private func stat(_ v: String, _ l: String) -> some View {
         VStack(alignment: .leading, spacing: 1) {
             Text(v).font(.num(22)).foregroundStyle(.white)
@@ -87,4 +121,10 @@ struct MovementCard: View {
         }
     }
     private func note(_ t: String) -> some View { Text(t).font(.system(size: 12)).foregroundStyle(Theme.muted) }
+}
+
+private struct DotLabel: LabelStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        HStack(spacing: 3) { configuration.icon.font(.system(size: 5)); configuration.title.foregroundStyle(Theme.muted) }
+    }
 }

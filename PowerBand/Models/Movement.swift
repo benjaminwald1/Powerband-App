@@ -18,6 +18,8 @@ final class MovementStore {
     private(set) var activeHours = 0
     private(set) var week: [DayStat] = []
     private(set) var lastMovedAt: Date?
+    /// Steps in each hour of today, index 0 = midnight.
+    private(set) var hourly: [Int] = Array(repeating: 0, count: 24)
     private(set) var loaded = false
 
     var available: Bool { CMPedometer.isStepCountingAvailable() }
@@ -50,16 +52,18 @@ final class MovementStore {
         if let d = await query(start, now) { steps = d.numberOfSteps.intValue; distanceMeters = d.distance?.doubleValue ?? 0 }
 
         var hours = 0, last: Date?
+        var perHour = Array(repeating: 0, count: 24)
         let hourNow = cal.component(.hour, from: now)
         for h in 0...hourNow {
             guard let a = cal.date(byAdding: .hour, value: h, to: start) else { continue }
             let b = min(now, cal.date(byAdding: .hour, value: h + 1, to: start) ?? now)
             if let n = (await query(a, b))?.numberOfSteps.intValue {
+                perHour[h] = n
                 if n >= 250 { hours += 1 }
                 if n > 0 { last = b }
             }
         }
-        activeHours = hours; lastMovedAt = last
+        activeHours = hours; lastMovedAt = last; hourly = perHour
 
         var days: [DayStat] = []
         for i in (0..<7).reversed() {

@@ -11,6 +11,7 @@ struct LiveView: View {
     @State private var running = false
     @State private var paused = false
     @State private var swings: [Swing] = []
+    @Environment(AutoRecorder.self) private var auto
     @State private var start = Date()
     @State private var now = Date()
     @State private var pausedTotal: TimeInterval = 0
@@ -155,6 +156,7 @@ struct LiveView: View {
         baselineBest = store.bestSpeed(for: sport); sessionBest = 0
         withAnimation { running = true }
         if hapticsOn { Haptics.success() }
+        auto.finish(); auto.manualActive = true
         sensor.startStream(sport: sport) { swing in receive(swing) }
     }
 
@@ -178,7 +180,7 @@ struct LiveView: View {
     }
 
     private func end() {
-        sensor.stopStream()
+        sensor.stopStream(); auto.manualActive = false
         let endDate = Date()
         withAnimation { running = false }
         let s = Session(sport: sport, start: start, end: endDate, swings: swings)

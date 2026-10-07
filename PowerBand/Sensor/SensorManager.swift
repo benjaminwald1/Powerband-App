@@ -49,7 +49,7 @@ final class SensorManager: NSObject {
     @ObservationIgnored private var streamTask: Task<Void, Never>?
     @ObservationIgnored private var timeoutTask: Task<Void, Never>?
     @ObservationIgnored private var onSwing: ((Swing) -> Void)?
-    @ObservationIgnored private var usingDemo = false
+    @ObservationIgnored private(set) var usingDemo = false
     @ObservationIgnored private var generator = SwingGenerator()
     @ObservationIgnored private var userDisconnected = false
 

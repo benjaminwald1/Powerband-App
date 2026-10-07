@@ -19,6 +19,7 @@
 		39CAF8C49BD0FD6EFC7CC8B0 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374193FF2CE1367B03D3FE12 /* AuthView.swift */; };
 		3D37D708E60EDDB7FA443495 /* PowerBandTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C918A2B75DFB9447A1CCC6F0 /* PowerBandTests.swift */; };
 		49C5B59A3A5736962675208E /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 59860CA257F552E54016C947 /* PrivacyInfo.xcprivacy */; };
+		4E2AAB49171BFD3BFC51EBB6 /* AutoRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C76BD02B2376EDEA2B3DAA4 /* AutoRecorder.swift */; };
 		5526EF9E97BEDF140B01FB8D /* DeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C81336927338851678AC63 /* DeviceView.swift */; };
 		55F1C74FDFE372D43DB42593 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F004D4B03BAB368FC6CC5EB5 /* GoogleService-Info.plist */; };
 		5D4239CBED490A670CFFCD4C /* Movement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E17FE687DA8AE386AAA470 /* Movement.swift */; };
@@ -57,6 +58,7 @@
 		068F8F9D63AC7846A34B0536 /* PowerBandTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = PowerBandTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EC0066F9EC820C8CDFF0ED2 /* SessionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetailView.swift; sourceTree = "<group>"; };
 		2B4644D426BA357AC586DEF0 /* PowerBandApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerBandApp.swift; sourceTree = "<group>"; };
+		2C76BD02B2376EDEA2B3DAA4 /* AutoRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoRecorder.swift; sourceTree = "<group>"; };
 		2EFB5564EF09B6BBA2772E5A /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		374193FF2CE1367B03D3FE12 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		39C309A0A7195FF1E4B28F56 /* SwingGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwingGenerator.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				03C38E3D2B5C7DF78EAC207B /* Account.swift */,
 				9A1A7FF13E40F4F203AD10BD /* Achievements.swift */,
 				B27144E4E22945FA695FFE78 /* AuthService.swift */,
+				2C76BD02B2376EDEA2B3DAA4 /* AutoRecorder.swift */,
 				CB39C7121AD7780DF68880CC /* Insights.swift */,
 				6FC352B47323CD53BA64B015 /* Models.swift */,
 				83E17FE687DA8AE386AAA470 /* Movement.swift */,
@@ -320,6 +323,7 @@
 				23BF212A40DB8E3739CF90BF /* Achievements.swift in Sources */,
 				849BD786D06F4A22CB02DEC3 /* AuthService.swift in Sources */,
 				39CAF8C49BD0FD6EFC7CC8B0 /* AuthView.swift in Sources */,
+				4E2AAB49171BFD3BFC51EBB6 /* AutoRecorder.swift in Sources */,
 				C3AA7799E82FF619BFA6E3E9 /* Components.swift in Sources */,
 				5526EF9E97BEDF140B01FB8D /* DeviceView.swift in Sources */,
 				601948AB7B2B78494E09C39E /* Haptics.swift in Sources */,
