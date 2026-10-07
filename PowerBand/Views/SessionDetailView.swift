@@ -5,6 +5,7 @@ struct SessionDetailView: View {
     let session: Session
     @Environment(Store.self) private var store
     @AppStorage("useMph") private var useMph = true
+    @AppStorage("weightKg") private var weightKg = 70.0
     @State private var shareImage: Image?
 
     private var series: [(index: Int, mph: Double)] {
@@ -40,6 +41,8 @@ struct SessionDetailView: View {
                 SpeedChart(points: series, useMph: useMph)
             }
             .card()
+
+            StatTile(label: "Calories burned", value: Int(s.totalCalories(weightKg: weightKg)).formatted(), unit: "kcal", sub: "\(s.sport.title) at \(Int(weightKg)) kg, estimated", subColor: Theme.muted, progress: min(1, s.totalCalories(weightKg: weightKg) / 800), progressColor: Theme.volt)
 
             if s.sport.hasFace {
                 SectionLabel("CONTACT POINT")

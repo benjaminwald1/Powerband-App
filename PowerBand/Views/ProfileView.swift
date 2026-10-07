@@ -5,6 +5,8 @@ struct ProfileView: View {
     @Environment(\.dismiss) private var dismiss
     @AppStorage("dailyGoal") private var goal = 200
     @AppStorage("stepGoal") private var stepGoal = 8000
+    @AppStorage("weightKg") private var weightKg = 70.0
+    @AppStorage("useMph") private var useMph = true
     @AppStorage("hapticsOn") private var hapticsOn = true
     @AppStorage("voiceOn") private var voiceOn = false
 
@@ -21,6 +23,9 @@ struct ProfileView: View {
                 VStack(spacing: 10) {
                     Stepper(value: $stepGoal, in: 2000...20000, step: 500) {
                         HStack(alignment: .firstTextBaseline, spacing: 4) { Text(stepGoal.formatted()).font(.num(30)).foregroundStyle(.white); Text("steps a day").font(.system(size: 12)).foregroundStyle(Theme.muted) }
+                    }
+                    Stepper(value: $weightKg, in: 30...200, step: 1) {
+                        HStack(alignment: .firstTextBaseline, spacing: 4) { Text(useMph ? "\(Int((weightKg * 2.20462).rounded())) lb" : "\(Int(weightKg)) kg").font(.num(30)).foregroundStyle(.white); Text("body weight, for calories").font(.system(size: 12)).foregroundStyle(Theme.muted) }
                     }
                     Stepper(value: $goal, in: 50...1000, step: 25) {
                         HStack(alignment: .firstTextBaseline, spacing: 4) { Text("\(goal)").font(.num(30)).foregroundStyle(.white); Text("shots a day").font(.system(size: 12)).foregroundStyle(Theme.muted) }

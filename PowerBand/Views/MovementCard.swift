@@ -4,11 +4,15 @@ import Charts
 /// All-day movement summary: score ring, steps, active hours, a stillness nudge and the last 7 days.
 struct MovementCard: View {
     @Environment(MovementStore.self) private var move
+    @Environment(Store.self) private var store
+    @AppStorage("weightKg") private var weightKg = 70.0
     @Environment(\.scenePhase) private var phase
     @AppStorage("stepGoal") private var stepGoal = 8000
     @AppStorage("useMph") private var useMph = true
 
     private var score: Int { move.score(goal: stepGoal) }
+    private var dailyKcal: Int { Int(move.walkingCalories(weightKg: weightKg).rounded()) }
+    private var sportKcal: Int { Int(store.todaySessions.map { $0.extraCalories(weightKg: weightKg) }.reduce(0, +).rounded()) }
     private var distance: String {
         let mi = move.distanceMeters / 1609.344, km = move.distanceMeters / 1000
         return useMph ? String(format: "%.1f mi", mi) : String(format: "%.1f km", km)
@@ -40,6 +44,18 @@ struct MovementCard: View {
                     }
                     Spacer(minLength: 0)
                 }
+                HStack(alignment: .firstTextBaseline) {
+                    VStack(alignment: .leading, spacing: 1) {
+                        Text("\((dailyKcal + sportKcal).formatted())").font(.num(30)).foregroundStyle(.white)
+                        Text("active calories today").font(.system(size: 10)).foregroundStyle(Theme.muted)
+                    }
+                    Spacer()
+                    VStack(alignment: .trailing, spacing: 2) {
+                        Label("\(dailyKcal) daily", systemImage: "figure.walk").foregroundStyle(Theme.green)
+                        Label("\(sportKcal) sport", systemImage: "figure.tennis").foregroundStyle(Theme.blue)
+                    }.font(.system(size: 11, weight: .semibold))
+                }
+                .padding(12).background(Color.white.opacity(0.04), in: RoundedRectangle(cornerRadius: 12))
                 if let still = move.minutesStill, still >= 60 {
                     Label("Still for \(still / 60) hr \(still % 60) min. Stand up and stretch.", systemImage: "figure.walk")
                         .font(.system(size: 12, weight: .semibold)).foregroundStyle(Theme.volt)

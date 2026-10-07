@@ -152,4 +152,11 @@ final class PowerBandTests: XCTestCase {
         XCTAssertEqual(MovementStore.score(steps: 4000, goal: 8000, activeHours: 4), 50)
         XCTAssertEqual(MovementStore.score(steps: 99999, goal: 8000, activeHours: 20), 100)
     }
+
+    func testSportCalories() {
+        let start = Date(timeIntervalSince1970: 0)
+        let s = Session(sport: .tennis, start: start, end: start.addingTimeInterval(3600), swings: [])
+        XCTAssertEqual(s.totalCalories(weightKg: 70), 7.3 * 70, accuracy: 0.01)
+        XCTAssertEqual(s.extraCalories(weightKg: 70), 4.3 * 70, accuracy: 0.01)
+    }
 }

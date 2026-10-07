@@ -29,6 +29,12 @@ final class MovementStore {
         return Int((s * 70 + a * 30).rounded())
     }
 
+    /// Walking energy, about 0.9 kcal per kg per km. Uses the phone's distance, or steps at 0.75 m each.
+    func walkingCalories(weightKg: Double) -> Double {
+        let km = distanceMeters > 0 ? distanceMeters / 1000 : Double(steps) * 0.00075
+        return km * weightKg * 0.9
+    }
+
     func score(goal: Int) -> Int { Self.score(steps: steps, goal: goal, activeHours: activeHours) }
 
     /// Minutes since the last step, or nil when unknown.

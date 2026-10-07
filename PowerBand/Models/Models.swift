@@ -21,6 +21,10 @@ enum Sport: String, Codable, CaseIterable, Identifiable {
         default: return "Swing speed"
         }
     }
+    /// Metabolic equivalent (MET) of the sport, from the Compendium of Physical Activities.
+    var met: Double {
+        switch self { case .tennis: 7.3; case .pickleball: 6.0; case .padel: 6.0; case .golf: 4.8; case .boxing: 7.8 }
+    }
     var mount: Mount {
         switch self {
         case .tennis: return .racquet
@@ -83,6 +87,13 @@ struct Session: Codable, Identifiable, Hashable {
     var avgTempo: Double { swings.isEmpty ? 0 : swings.map(\.tempo).reduce(0, +) / Double(count) }
     var maxForce: Double { swings.map(\.forceN).max() ?? 0 }
     var sweetSpotRate: Double { swings.isEmpty ? 0 : Double(swings.filter(\.isSweetSpot).count) / Double(count) }
+    /// Calories burned above gentle walking, which the all-day step count already covers,
+    /// so a day's sport and lifestyle totals add up without double counting.
+    func extraCalories(weightKg: Double) -> Double {
+        max(0, (sport.met - 3.0) * weightKg * duration / 3600)
+    }
+    /// Calories for the whole session including the walking-level baseline.
+    func totalCalories(weightKg: Double) -> Double { sport.met * weightKg * duration / 3600 }
     /// 0...21 workload score, like a daily strain number.
     var load: Double { 21 * (1 - exp(-Double(count) / 150)) }
 
